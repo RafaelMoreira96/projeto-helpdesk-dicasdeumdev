@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.annotation.Generated;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -16,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -29,6 +29,8 @@ public abstract class Pessoa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
+	
+	@NotNull(message = "O campo NOME deve ser inserido")
 	protected String nome;
 	
 	@CPF
@@ -36,7 +38,10 @@ public abstract class Pessoa implements Serializable{
 	protected String cpf;
 	
 	@Column(unique = true)
+	@NotNull(message = "O campo Email deve ser inserido")
 	protected String email;
+	
+	@NotNull(message = "O campo Senha deve ser inserido")
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
