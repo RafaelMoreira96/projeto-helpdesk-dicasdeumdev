@@ -28,12 +28,14 @@ public class ChamadoResource {
 	@Autowired
 	private ChamadoService service;
 
+	// Procura por ID
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id) {
 		Chamado obj = service.findById(id);
 		return ResponseEntity.ok().body(new ChamadoDTO(obj));
 	}
 
+	// Listar todos
 	@GetMapping
 	public ResponseEntity<List<ChamadoDTO>> findAll() {
 		List<Chamado> list = service.findAll();
@@ -41,13 +43,15 @@ public class ChamadoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
+	// Cadastrar 
 	@PostMapping
 	public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO objDTO) {
 		Chamado obj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id)").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-
+	
+	// Atualizar
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ChamadoDTO objDTO) {
 		Chamado newObj = service.update(id, objDTO);

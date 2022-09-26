@@ -30,12 +30,14 @@ public class TecnicoResource {
 	@Autowired
 	private TecnicoService service;
 	
+	// Procurar por ID
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		Tecnico obj = service.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
+	// Listar todos
 	@GetMapping
 	public ResponseEntity<List<TecnicoDTO>> findAll(){
 		List<Tecnico> list = service.findAll();
@@ -44,6 +46,7 @@ public class TecnicoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	// Cadastrar
 	@PreAuthorize("hasAnyrole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO objDTO){
@@ -52,6 +55,7 @@ public class TecnicoResource {
 		return ResponseEntity.created(null).build();
 	}
 	
+	// Atualizar
 	@PreAuthorize("hasAnyrole('ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO objDTO){
@@ -59,6 +63,7 @@ public class TecnicoResource {
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
+	// Deletar
 	@PreAuthorize("hasAnyrole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id){
