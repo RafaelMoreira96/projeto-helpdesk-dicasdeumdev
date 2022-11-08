@@ -32,13 +32,20 @@ import { MatCardModule } from '@angular/material/card';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
-import { LoginComponent } from './components/login/login.component';
-import { ToastrModule } from 'ngx-toastr';
-import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
+
+import { LoginComponent } from './components/login/login.component';
+
+import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
+import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
 import { TecnicoUpdateComponent } from './components/tecnico/tecnico-update/tecnico-update.component';
 import { TecnicoDeleteComponent } from './components/tecnico/tecnico-delete/tecnico-delete.component';
+
+import { ClienteUpdateComponent } from './components/cliente/cliente-update/cliente-update.component';
+import { ClienteListComponent } from './components/cliente/cliente-list/cliente-list.component';
+import { ClienteDeleteComponent } from './components/cliente/cliente-delete/cliente-delete.component';
+import { ClienteCreateComponent } from './components/cliente/cliente-create/cliente-create.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +58,10 @@ import { TecnicoDeleteComponent } from './components/tecnico/tecnico-delete/tecn
     TecnicoCreateComponent,
     TecnicoUpdateComponent,
     TecnicoDeleteComponent,
+    ClienteCreateComponent,
+    ClienteDeleteComponent,
+    ClienteListComponent,
+    ClienteUpdateComponent
   ],
   imports: [
     BrowserModule,
