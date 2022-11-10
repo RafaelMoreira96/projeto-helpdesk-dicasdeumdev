@@ -1,7 +1,9 @@
+import { ChamadoService } from './../../../services/chamado.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Chamado } from './../../../models/chamado';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 @Component({
   selector: 'app-chamado-list',
@@ -9,60 +11,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./chamado-list.component.css'],
 })
 export class ChamadoListComponent implements OnInit {
-  ELEMENT_DATA: Chamado[] = [
-    {
-      id: 1,
-      dataAbertura: '21/06/2022',
-      dataFechamento: '21/06/2022',
-      prioridade: 'ALTA',
-      status: 'ANDAMENTO',
-      titulo: 'Chamado 1',
-      descricao: 'Teste chamado 1',
-      tecnico: 1,
-      cliente: 6,
-      nomeCliente: 'Rafale Moreira',
-      nomeTecnico: 'Ximbinha',
-    },
-    {
-      id: 2,
-      dataAbertura: '21/06/2022',
-      dataFechamento: '21/06/2022',
-      prioridade: 'ALTA',
-      status: 'ANDAMENTO',
-      titulo: 'Chamado 2',
-      descricao: 'Teste chamado 2',
-      tecnico: 1,
-      cliente: 6,
-      nomeCliente: 'Rafale Moreira',
-      nomeTecnico: 'Ximbinha',
-    },
-    {
-      id: 3,
-      dataAbertura: '21/06/2022',
-      dataFechamento: '21/06/2022',
-      prioridade: 'BAIXA',
-      status: 'CONCLUIDA',
-      titulo: 'Chamado 3',
-      descricao: 'Teste chamado 3',
-      tecnico: 1,
-      cliente: 6,
-      nomeCliente: 'Rafale Moreira',
-      nomeTecnico: 'Ximbinha',
-    },
-    {
-      id: 4,
-      dataAbertura: '21/06/2022',
-      dataFechamento: '21/06/2022',
-      prioridade: 'MEDIA',
-      status: 'ANDAMENTO',
-      titulo: 'Chamado 4',
-      descricao: 'Teste chamado 4',
-      tecnico: 1,
-      cliente: 6,
-      nomeCliente: 'Rafale Moreira',
-      nomeTecnico: 'Ximbinha',
-    },
-  ];
+  ELEMENT_DATA: Chamado[] = [];
+  FILTERED_DATA: Chamado[] = [];
 
   displayedColumns: string[] = [
     'id',
@@ -78,12 +28,56 @@ export class ChamadoListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor() {}
+  constructor(private service: ChamadoService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.findAll();
+  }
 
+  findAll(): void {
+    this.service.findAll().subscribe((resposta) => {
+      this.ELEMENT_DATA = resposta;
+      this.dataSource = new MatTableDataSource<Chamado>(this.ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  retornaStatus(status: any): string {
+    if (status == '0') {
+      return 'ABERTO';
+    } else if (status == '1') {
+      return 'EM ANDAMENTO';
+    } else {
+      return 'ENCERRADO';
+    }
+  }
+
+  retornaPrioridade(prioridade: any): string {
+    if (prioridade == '0') {
+      return 'BAIXA';
+    } else if (prioridade == '1') {
+      return 'MÉDIA';
+    } else {
+      return 'ALTA';
+    }
+  }
+
+  orderByStatus(status: any): void {
+    if (status == '3') {
+      this.dataSource = new MatTableDataSource<Chamado>(this.ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+    } else {
+      let list: Chamado[] = [];
+      this.ELEMENT_DATA.forEach((element) => {
+        if (element.status == status) list.push(element);
+      });
+      this.FILTERED_DATA = list;
+      this.dataSource = new MatTableDataSource<Chamado>(this.FILTERED_DATA);
+      this.dataSource.paginator = this.paginator;
+    }
   }
 }
