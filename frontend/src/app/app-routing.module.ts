@@ -1,3 +1,4 @@
+import { ChamadoCreateComponent } from './components/chamado/chamado-create/chamado-create.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
@@ -39,7 +40,8 @@ const routes: Routes = [
       { path: 'clientes/update/:id',    component: ClienteUpdateComponent },
       { path: 'clientes/delete/:id',    component: ClienteDeleteComponent },
 
-      { path: 'chamados', component: ChamadoListComponent },
+      { path: 'chamados',               component: ChamadoListComponent },
+      { path: 'chamados/create',        component: ChamadoCreateComponent },
     ],
   },
 ];

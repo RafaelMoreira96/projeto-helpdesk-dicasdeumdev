@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Listando Chamados</h1>
 
-  <button mat-stroked-button color="primary" class="mat-elevation-z8">
+  <button routerLink="create" mat-stroked-button color="primary" class="mat-elevation-z8">
     Novo chamado
   </button>
 
@@ -17,7 +17,7 @@
 
   <!-- STATUS -->
   <mat-radio-group  color="primary">
-    <mat-radio-button (click)="orderByStatus(3)" value="ALL">TODOS</mat-radio-button>
+    <mat-radio-button checked="true" (click)="orderByStatus(3)" value="ALL">TODOS</mat-radio-button>
     <mat-radio-button (click)="orderByStatus(0)" value="0">ABERTO</mat-radio-button>
     <mat-radio-button (click)="orderByStatus(1)" value="1">ANDAMENTO</mat-radio-button>
     <mat-radio-button (click)="orderByStatus(2)" value="2">ENCERRADO</mat-radio-button>
