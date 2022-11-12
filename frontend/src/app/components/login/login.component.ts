@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
           resposta.headers.get('Authorization')?.substring(7) as any
         );
         this.router.navigate(['']);
-        this.toast.info('Bem-vindo, Usuário!', 'Login', { timeOut: 7000 });
+        this.toast.info('Bem-vindo, Usuário!', 'Login', { timeOut: 3000 });
       },
       () => {
         this.toast.error('Usuário e/ou senha invalidas');
